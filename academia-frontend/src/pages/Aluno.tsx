@@ -84,13 +84,13 @@ function Aluno() {
           <input type="text" id="nome" name="nome" value={novoAluno} onChange={(e) => setNovoAluno(e.target.value)} placeholder="Digite o seu nome..."/>
         <label htmlFor="email">Email: </label>
           <input type="text" id="email" name="email" value={novoEmail} onChange={(e) => setNovoEmail(e.target.value)} placeholder="Digite o seu nome..."/>
-        <button type="submit" className="cursor-pointer">Enviar</button>
+        <button type="submit" className="cursor-pointer mx-3 bg-blue-500 rounded-2xl">Enviar</button>
       </form>
       <ul>
         {alunos.map(aluno => (
           <li key={aluno.id}>{aluno.nome} - {aluno.email} - 
-          <button className="cursor-pointer" onClick={()=> handleDelete(aluno.id)}>Deletar</button>
-          <button className="cursor-pointer" onClick={()=> handleEditClick(aluno)}>Editar</button>
+          <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={()=> handleDelete(aluno.id)}>Deletar</button>
+          <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={()=> handleEditClick(aluno)}>Editar</button>
         </li>
         ))}
       </ul>

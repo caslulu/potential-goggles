@@ -27,6 +27,15 @@ public class AulaController{
   public List<Aula> verAulas(){
     return this.repository.findAll();
   }
+  
+  @GetMapping("/aulas/{id}")
+  public Aula verAula(@PathVariable Long id){
+  Optional<Aula> aulaOpcional = this.repository.findById(id);
+  if(aulaOpcional.isPresent()){
+    return aulaOpcional.get();
+  }
+  return new Aula();
+  }
 
   @PostMapping("/aulas")
   public Aula criarAula(@RequestBody Aula novaAula){
@@ -43,11 +52,10 @@ public class AulaController{
       aulaEncontrada.setHorario(aulaCorrigida.getHorario());
       aulaEncontrada.setInstrutor(aulaCorrigida.getInstrutor());
       aulaEncontrada.setCapacidade(aulaCorrigida.getCapacidade());
+      this.repository.save(aulaEncontrada);
       return aulaEncontrada;
     }
-    else{
-      return new Aula();
-    }
+    return new Aula();
   }
 
   @DeleteMapping("/aulas/{id}")

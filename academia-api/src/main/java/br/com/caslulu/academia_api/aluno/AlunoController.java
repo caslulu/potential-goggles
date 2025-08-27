@@ -27,6 +27,16 @@ public class AlunoController {
     return this.repository.findAll();
   }
 
+  @GetMapping("/alunos/{id}")
+  public Aluno verAluno(@PathVariable Long id){
+    Optional<Aluno> alunoOpcional = this.repository.findById(id);
+    if(alunoOpcional.isPresent()){
+      return alunoOpcional.get();
+    }
+    return new Aluno("não encontrado", "404");
+    
+  }
+
   @PostMapping("/alunos")
   public Aluno adicionarAluno(@RequestBody Aluno alunoAdicionar){
     this.repository.save(alunoAdicionar);
@@ -40,11 +50,10 @@ public class AlunoController {
     Aluno alunoEncontrado = alunoOpcional.get();
     alunoEncontrado.setNome(alunoModificado.getNome());
     alunoEncontrado.setEmail(alunoModificado.getEmail());
+    this.repository.save(alunoEncontrado);
     return alunoEncontrado;
-  }
-  else {
+    }
     return new Aluno("não encontrado", "404");
-  }
   }
   @DeleteMapping("/alunos/{id}")
   public String deletarAluno(@PathVariable Long id){
