@@ -1,4 +1,4 @@
-package br.com.caslulu.academia_api;
+package br.com.caslulu.academia_api.aluno;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Entity;

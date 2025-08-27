@@ -1,5 +1,4 @@
-
-package br.com.caslulu.academia_api;
+package br.com.caslulu.academia_api.aluno;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
