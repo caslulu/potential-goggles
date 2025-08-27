@@ -1,0 +1,196 @@
+Aug 26 00:33:05 archlinux systemd[1]: Starting Docker Application Container Engine...
+[0;38;5;245m░░ [0m[0;32mSubject: A start job for unit docker.service has begun execution[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mA start job for unit docker.service has begun execution.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe job identifier is 2773.[0m
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.426267090-03:00" level=info msg="Starting up"
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.426601427-03:00" level=info msg="OTEL tracing is not configured, using no-op tracer provider"
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.426654733-03:00" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/etc/cdi
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.426663512-03:00" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/var/run/cdi
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.435330336-03:00" level=info msg="Creating a containerd client" address=/run/containerd/containerd.sock timeout=1m0s
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.445340369-03:00" level=error msg="failed to mount overlay: no such device" storage-driver=overlay2
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.445391455-03:00" level=error msg="exec: \"fuse-overlayfs\": executable file not found in $PATH" storage-driver=fuse-overlayfs
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.446319579-03:00" level=info msg="Loading containers: start."
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.448775492-03:00" level=warning msg="Could not load necessary modules for IPSEC rules: protocol not supported"
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.501762270-03:00" level=info msg="stopping event stream following graceful shutdown" error="<nil>" module=libcontainerd namespace=moby
+Aug 26 00:33:05 archlinux dockerd[28938]: failed to start daemon: Error initializing network controller: error obtaining controller instance: failed to register "bridge" driver: failed to create NAT chain DOCKER: iptables failed: iptables --wait -t nat -N DOCKER: iptables v1.8.11 (legacy): can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Aug 26 00:33:05 archlinux dockerd[28938]: Perhaps iptables or your kernel needs to be upgraded.
+Aug 26 00:33:05 archlinux dockerd[28938]:  (exit status 3)
+Aug 26 00:33:05 archlinux dockerd[28938]: time="2025-08-26T00:33:05.501921828-03:00" level=info msg="stopping event stream following graceful shutdown" error="context canceled" module=libcontainerd namespace=plugins.moby
+Aug 26 00:33:05 archlinux systemd[1]: [0;1;39m[0;1;31m[0;1;39mdocker.service: Main process exited, code=exited, status=1/FAILURE[0m
+[0;38;5;245m░░ [0m[0;32mSubject: Unit process exited[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mAn ExecStart= process belonging to unit docker.service has exited.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe process' exit code is 'exited' and its exit status is 1.[0m
+Aug 26 00:33:05 archlinux systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mdocker.service: Failed with result 'exit-code'.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: Unit failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe unit docker.service has entered the 'failed' state with result 'exit-code'.[0m
+Aug 26 00:33:05 archlinux systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start Docker Application Container Engine.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: A start job for unit docker.service has failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mA start job for unit docker.service has finished with a failure.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe job identifier is 2773 and the job result is failed.[0m
+Aug 26 00:33:07 archlinux systemd[1]: docker.service: Scheduled restart job, restart counter is at 1.
+[0;38;5;245m░░ [0m[0;32mSubject: Automatic restarting of a unit has been scheduled[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mAutomatic restarting of the unit docker.service has been scheduled, as the result for[0m
+[0;38;5;245m░░[0m [0;32mthe configured Restart= setting for the unit.[0m
+Aug 26 00:33:07 archlinux systemd[1]: Starting Docker Application Container Engine...
+[0;38;5;245m░░ [0m[0;32mSubject: A start job for unit docker.service has begun execution[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mA start job for unit docker.service has begun execution.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe job identifier is 2887.[0m
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.674872752-03:00" level=info msg="Starting up"
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.675631078-03:00" level=info msg="OTEL tracing is not configured, using no-op tracer provider"
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.675696142-03:00" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/etc/cdi
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.675706343-03:00" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/var/run/cdi
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.683965553-03:00" level=info msg="Creating a containerd client" address=/run/containerd/containerd.sock timeout=1m0s
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.691080111-03:00" level=error msg="failed to mount overlay: no such device" storage-driver=overlay2
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.691126132-03:00" level=error msg="exec: \"fuse-overlayfs\": executable file not found in $PATH" storage-driver=fuse-overlayfs
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.691315372-03:00" level=info msg="Loading containers: start."
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.692857793-03:00" level=warning msg="Could not load necessary modules for IPSEC rules: protocol not supported"
+Aug 26 00:33:07 archlinux dockerd[29022]: time="2025-08-26T00:33:07.759059351-03:00" level=info msg="stopping event stream following graceful shutdown" error="<nil>" module=libcontainerd namespace=moby
+Aug 26 00:33:07 archlinux dockerd[29022]: failed to start daemon: Error initializing network controller: error obtaining controller instance: failed to register "bridge" driver: failed to create NAT chain DOCKER: iptables failed: iptables --wait -t nat -N DOCKER: iptables v1.8.11 (legacy): can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Aug 26 00:33:07 archlinux dockerd[29022]: Perhaps iptables or your kernel needs to be upgraded.
+Aug 26 00:33:07 archlinux dockerd[29022]:  (exit status 3)
+Aug 26 00:33:07 archlinux systemd[1]: [0;1;39m[0;1;31m[0;1;39mdocker.service: Main process exited, code=exited, status=1/FAILURE[0m
+[0;38;5;245m░░ [0m[0;32mSubject: Unit process exited[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mAn ExecStart= process belonging to unit docker.service has exited.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe process' exit code is 'exited' and its exit status is 1.[0m
+Aug 26 00:33:07 archlinux systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mdocker.service: Failed with result 'exit-code'.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: Unit failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe unit docker.service has entered the 'failed' state with result 'exit-code'.[0m
+Aug 26 00:33:07 archlinux systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start Docker Application Container Engine.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: A start job for unit docker.service has failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mA start job for unit docker.service has finished with a failure.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe job identifier is 2887 and the job result is failed.[0m
+Aug 26 00:33:09 archlinux systemd[1]: docker.service: Scheduled restart job, restart counter is at 2.
+[0;38;5;245m░░ [0m[0;32mSubject: Automatic restarting of a unit has been scheduled[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mAutomatic restarting of the unit docker.service has been scheduled, as the result for[0m
+[0;38;5;245m░░[0m [0;32mthe configured Restart= setting for the unit.[0m
+Aug 26 00:33:09 archlinux systemd[1]: Starting Docker Application Container Engine...
+[0;38;5;245m░░ [0m[0;32mSubject: A start job for unit docker.service has begun execution[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mA start job for unit docker.service has begun execution.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe job identifier is 3001.[0m
+Aug 26 00:33:09 archlinux dockerd[29375]: time="2025-08-26T00:33:09.928034587-03:00" level=info msg="Starting up"
+Aug 26 00:33:09 archlinux dockerd[29375]: time="2025-08-26T00:33:09.928292340-03:00" level=info msg="OTEL tracing is not configured, using no-op tracer provider"
+Aug 26 00:33:09 archlinux dockerd[29375]: time="2025-08-26T00:33:09.928327752-03:00" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/var/run/cdi
+Aug 26 00:33:09 archlinux dockerd[29375]: time="2025-08-26T00:33:09.928333317-03:00" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/etc/cdi
+Aug 26 00:33:09 archlinux dockerd[29375]: time="2025-08-26T00:33:09.933217062-03:00" level=info msg="Creating a containerd client" address=/run/containerd/containerd.sock timeout=1m0s
+Aug 26 00:33:10 archlinux dockerd[29375]: time="2025-08-26T00:33:10.013156109-03:00" level=error msg="failed to mount overlay: no such device" storage-driver=overlay2
+Aug 26 00:33:10 archlinux dockerd[29375]: time="2025-08-26T00:33:10.013241968-03:00" level=error msg="exec: \"fuse-overlayfs\": executable file not found in $PATH" storage-driver=fuse-overlayfs
+Aug 26 00:33:10 archlinux dockerd[29375]: time="2025-08-26T00:33:10.013590500-03:00" level=info msg="Loading containers: start."
+Aug 26 00:33:10 archlinux dockerd[29375]: time="2025-08-26T00:33:10.016658433-03:00" level=warning msg="Could not load necessary modules for IPSEC rules: protocol not supported"
+Aug 26 00:33:10 archlinux dockerd[29375]: time="2025-08-26T00:33:10.088620846-03:00" level=info msg="stopping event stream following graceful shutdown" error="<nil>" module=libcontainerd namespace=moby
+Aug 26 00:33:10 archlinux dockerd[29375]: failed to start daemon: Error initializing network controller: error obtaining controller instance: failed to register "bridge" driver: failed to create NAT chain DOCKER: iptables failed: iptables --wait -t nat -N DOCKER: iptables v1.8.11 (legacy): can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Aug 26 00:33:10 archlinux dockerd[29375]: Perhaps iptables or your kernel needs to be upgraded.
+Aug 26 00:33:10 archlinux dockerd[29375]:  (exit status 3)
+Aug 26 00:33:10 archlinux systemd[1]: [0;1;39m[0;1;31m[0;1;39mdocker.service: Main process exited, code=exited, status=1/FAILURE[0m
+[0;38;5;245m░░ [0m[0;32mSubject: Unit process exited[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mAn ExecStart= process belonging to unit docker.service has exited.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe process' exit code is 'exited' and its exit status is 1.[0m
+Aug 26 00:33:10 archlinux systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mdocker.service: Failed with result 'exit-code'.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: Unit failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe unit docker.service has entered the 'failed' state with result 'exit-code'.[0m
+Aug 26 00:33:10 archlinux systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start Docker Application Container Engine.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: A start job for unit docker.service has failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mA start job for unit docker.service has finished with a failure.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe job identifier is 3001 and the job result is failed.[0m
+Aug 26 00:33:12 archlinux systemd[1]: docker.service: Scheduled restart job, restart counter is at 3.
+[0;38;5;245m░░ [0m[0;32mSubject: Automatic restarting of a unit has been scheduled[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mAutomatic restarting of the unit docker.service has been scheduled, as the result for[0m
+[0;38;5;245m░░[0m [0;32mthe configured Restart= setting for the unit.[0m
+Aug 26 00:33:12 archlinux systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mdocker.service: Start request repeated too quickly.[0m
+Aug 26 00:33:12 archlinux systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mdocker.service: Failed with result 'exit-code'.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: Unit failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe unit docker.service has entered the 'failed' state with result 'exit-code'.[0m
+Aug 26 00:33:12 archlinux systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start Docker Application Container Engine.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: A start job for unit docker.service has failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mA start job for unit docker.service has finished with a failure.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe job identifier is 3115 and the job result is failed.[0m
+Aug 26 00:33:16 archlinux systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mdocker.service: Start request repeated too quickly.[0m
+Aug 26 00:33:16 archlinux systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mdocker.service: Failed with result 'exit-code'.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: Unit failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe unit docker.service has entered the 'failed' state with result 'exit-code'.[0m
+Aug 26 00:33:16 archlinux systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start Docker Application Container Engine.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: A start job for unit docker.service has failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mA start job for unit docker.service has finished with a failure.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe job identifier is 3229 and the job result is failed.[0m
+Aug 26 00:33:49 archlinux systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mdocker.service: Start request repeated too quickly.[0m
+Aug 26 00:33:49 archlinux systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mdocker.service: Failed with result 'exit-code'.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: Unit failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe unit docker.service has entered the 'failed' state with result 'exit-code'.[0m
+Aug 26 00:33:49 archlinux systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start Docker Application Container Engine.[0m
+[0;38;5;245m░░ [0m[0;32mSubject: A start job for unit docker.service has failed[0m
+[0;38;5;245m░░[0m [0;32mDefined-By: systemd[0m
+[0;38;5;245m░░[0m [0;32mSupport: https://lists.freedesktop.org/mailman/listinfo/systemd-devel[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mA start job for unit docker.service has finished with a failure.[0m
+[0;38;5;245m░░[0m [0;32m[0m
+[0;38;5;245m░░[0m [0;32mThe job identifier is 3343 and the job result is failed.[0m
