@@ -16,7 +16,7 @@ function Aula() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const postData = {
-      aula: novaAula,
+      nome: novaAula,
       horario: novoHorario,
       instrutor: novoInstrutor,
       capacidade: novaCapacidade
@@ -37,6 +37,19 @@ function Aula() {
         setAulas(aulaAntiga => [...aulaAntiga, novaAulaSalva]);
 
       }
+      else{
+        const response = await fetch(`http://localhost:8080/aulas/${aulaParaEditar.id}`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json' },
+          body: JSON.stringify(postData)
+          });
+        if(!response.ok){
+          throw new Error("nao foi possivel editar");
+        }
+        const aulaEditada = await response.json();
+        setAulas(listaAntiga => listaAntiga.map(aula=> aula.id === aulaEditada.id ? aulaEditada : aula
+        ));
+      }
       setNovaAula("");
       setNovoHorario("");
       setNovoInstrutor("");
@@ -45,7 +58,7 @@ function Aula() {
     catch(error){
       return "nao foi possivel criar a aula";
     }
-  }
+  };
 
   function handleDelete(id: Long){
   fetch(`http://localhost:8080/aulas/${id}`, {method: 'DELETE'})
@@ -58,6 +71,13 @@ function Aula() {
         }
       });
   }
+  const handleEdit = (aula) =>{
+      setAulaParaEditar(aula);
+      setNovaAula(aula.nome);
+      setNovoHorario(aula.horario);
+      setNovoInstrutor(aula.instrutor);
+      setNovaCapacidade(aula.capacidade);
+    }
   return(
      <div>
       <hr/>
@@ -85,6 +105,7 @@ function Aula() {
             Instrutor da aula: {aula.instrutor} -
             Capacidade: {aula.capacidade} Pessoas
             <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleDelete(aula.id)}>deletar</button>
+            <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleEdit(aula)}>Editar</button>
           <hr/>
         </li>
         ))}

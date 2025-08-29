@@ -68,14 +68,14 @@ function Aluno() {
         return "erro ao criar pessoa";
     }
 
-  };
+  }
 
   const handleEditClick = (aluno) =>{
   setAlunoParaEditar(aluno);
   setNovoAluno(aluno.nome);
   setNovoEmail(aluno.email);
 
-  };
+  }
   return(
     <div>  
       <h1>Gerenciamento de Alunos</h1>
