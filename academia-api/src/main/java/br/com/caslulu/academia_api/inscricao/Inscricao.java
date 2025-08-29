@@ -42,7 +42,7 @@ public class Inscricao{
     return this.aula;
   }
   
-  public LocalDateTime getData(){
+  public LocalDateTime getDataInscricao(){
     return this.dataInscricao;
   }
 
@@ -56,7 +56,7 @@ public class Inscricao{
     return aulaNova;
   }
 
-  public LocalDateTime setData(LocalDateTime dataNova){
+  public LocalDateTime setDataInscricao(LocalDateTime dataNova){
     this.dataInscricao = dataNova;
     return dataNova;
   }

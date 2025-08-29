@@ -35,7 +35,7 @@ public class InscricaoService{
       Inscricao novaInscricao = new Inscricao();
       novaInscricao.setAluno(alunoEncontrado);
       novaInscricao.setAula(aulaEncontrada);
-      novaInscricao.setData(LocalDateTime.now());
+      novaInscricao.setDataInscricao(LocalDateTime.now());
       return this.inscricaoRepository.save(novaInscricao);
     }
     throw new RuntimeException("Aluna ou Aula não encontrada pelo Id");

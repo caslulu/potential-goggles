@@ -17,15 +17,17 @@ import java.util.Optional;
 @CrossOrigin()
 public class AulaController{
   private final AulaRepository repository;
-  
-  public AulaController(AulaRepository repository){
+  private final AulaService service;
+
+  public AulaController(AulaRepository repository, AulaService service){
     this.repository = repository;
+    this.service = service;
   }
 
 
   @GetMapping("/aulas")
-  public List<Aula> verAulas(){
-    return this.repository.findAll();
+  public List<AulaResponseDTO> verAulas(){
+    return service.listarAulasComVagas();
   }
   
   @GetMapping("/aulas/{id}")

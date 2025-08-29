@@ -78,6 +78,25 @@ function Aula() {
       setNovoInstrutor(aula.instrutor);
       setNovaCapacidade(aula.capacidade);
     }
+
+  const handleInscrever = async (aulaId)=>{
+    const postData = {
+      aulaId: aulaId,
+      alunoId: 2
+    };
+    const response = await fetch('http://localhost:8080/inscricoes', {
+      method:"POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(postData)
+    });
+    if (! response.ok){
+      const erro = await response.json();
+      alert(erro);
+      throw new Error ("Não foi possivel se inscrever");
+    }
+    alert("Inscricao realizada com sucesso");
+    
+  }
   return(
      <div>
       <hr/>
@@ -103,7 +122,8 @@ function Aula() {
         <li key={aula.id}> Tipo de aula: {aula.nome} -
             Horario da aula: {aula.horario} - 
             Instrutor da aula: {aula.instrutor} -
-            Capacidade: {aula.capacidade} Pessoas
+            Capacidade: {aula.inscritos}/{aula.capacidade} Pessoas
+            <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={()=> handleInscrever(aula.id)}> Inscrever</button>
             <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleDelete(aula.id)}>deletar</button>
             <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleEdit(aula)}>Editar</button>
           <hr/>
