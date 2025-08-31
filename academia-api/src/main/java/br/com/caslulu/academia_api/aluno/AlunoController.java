@@ -16,54 +16,34 @@ import java.util.Optional;
 @CrossOrigin()
 public class AlunoController {
 
-  private final AlunoRepository repository;
+  private final AlunoService service;
 
-  public AlunoController(AlunoRepository repository){
-    this.repository = repository;
+  public AlunoController(AlunoService service){
+    this.service = service;
   }
 
   @GetMapping("/alunos")
-  public List<Aluno> verAlunos(){
-    return this.repository.findAll();
+  public List<AlunoResponseDTO> verAlunos(){
+    return service.verTodos();
   }
 
   @GetMapping("/alunos/{id}")
-  public Aluno verAluno(@PathVariable Long id){
-    Optional<Aluno> alunoOpcional = this.repository.findById(id);
-    if(alunoOpcional.isPresent()){
-      return alunoOpcional.get();
-    }
-    return new Aluno("não encontrado", "404");
-    
+  public AlunoResponseDTO verAluno(@PathVariable Long id){
+    return service.buscarPorId(id);
   }
 
   @PostMapping("/alunos")
   public Aluno adicionarAluno(@RequestBody Aluno alunoAdicionar){
-    this.repository.save(alunoAdicionar);
-    return alunoAdicionar;
+    return service.criar(alunoAdicionar);
   }
 
   @PutMapping("/alunos/{id}")
-  public Aluno modificarAluno(@PathVariable Long id, @RequestBody Aluno alunoModificado){
-  Optional<Aluno> alunoOpcional = this.repository.findById(id);
-  if (alunoOpcional.isPresent()){
-    Aluno alunoEncontrado = alunoOpcional.get();
-    alunoEncontrado.setNome(alunoModificado.getNome());
-    alunoEncontrado.setEmail(alunoModificado.getEmail());
-    this.repository.save(alunoEncontrado);
-    return alunoEncontrado;
-    }
-    return new Aluno("não encontrado", "404");
+  public AlunoResponseDTO modificarAluno(@PathVariable Long id, @RequestBody Aluno alunoModificado){
+    return service.atualizar(id, alunoModificado);
   }
   @DeleteMapping("/alunos/{id}")
   public String deletarAluno(@PathVariable Long id){
-    try{
-      this.repository.deleteById(id);
-      return "Deletado Com Sucesso.";
-
-    }catch(Exception e){
-      return "Não foi possivel encontrar.";
-    }
+    return service.deletar(id);
   }
   
 

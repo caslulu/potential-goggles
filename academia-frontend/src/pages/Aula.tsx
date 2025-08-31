@@ -15,9 +15,7 @@ function Aula() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const postData = {
-      nome: novaAula,
-      horario: novoHorario,
+    const postData = { nome: novaAula, horario: novoHorario,
       instrutor: novoInstrutor,
       capacidade: novaCapacidade
     };
@@ -90,12 +88,18 @@ function Aula() {
       body: JSON.stringify(postData)
     });
     if (! response.ok){
-      const erro = await response.json();
-      alert(erro);
-      throw new Error ("Não foi possivel se inscrever");
+      alert("Não foi possivel se inscrever");
+      throw new Error("Não foi possivel se inscrever");
     }
     alert("Inscricao realizada com sucesso");
-    
+    setAulas(listaAntiga => listaAntiga.map(aula => {
+      if (aula.id === aulaId){
+        return {...aula, inscritos: aula.inscritos+1};
+      } else{
+        return aula;
+      }
+    })
+    );
   }
   return(
      <div>
