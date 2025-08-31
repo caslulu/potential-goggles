@@ -1,5 +1,5 @@
 package br.com.caslulu.academia_api.aluno;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin()
 public class AlunoController {
 
   private final AlunoService service;
@@ -42,8 +41,9 @@ public class AlunoController {
     return service.atualizar(id, alunoModificado);
   }
   @DeleteMapping("/alunos/{id}")
-  public String deletarAluno(@PathVariable Long id){
-    return service.deletar(id);
+  public ResponseEntity<Void> deletarAluno(@PathVariable Long id){
+    service.deletar(id);
+    return ResponseEntity.noContent().build();
   }
   
 

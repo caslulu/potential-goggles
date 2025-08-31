@@ -53,11 +53,11 @@ public class AlunoService{
     throw new RuntimeException("Não foi possivel encontrar o aluno para atualizar");
   }
 
-  public String deletar(Long id){
+  public void deletar(Long id){
     if(repository.existsById(id)){
       repository.deleteById(id);
-      return "Deletado com Sucesso";
+      return;
     }
-    return "Nao foi possivel deletar, nao encontrado";
+    throw new RuntimeException("Aluno nao encontrado para o ID: " + id);
   }
 }

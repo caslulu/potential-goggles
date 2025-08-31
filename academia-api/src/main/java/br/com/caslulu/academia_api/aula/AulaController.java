@@ -14,7 +14,6 @@ import java.util.Optional;
 
 
 @RestController
-@CrossOrigin()
 public class AulaController{
   private final AulaRepository repository;
   private final AulaService service;

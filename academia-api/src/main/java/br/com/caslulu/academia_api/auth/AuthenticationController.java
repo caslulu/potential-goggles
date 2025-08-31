@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin()
 public class AuthenticationController{
   private final AuthenticationManager authenticationManager;
   private final TokenService tokenService;

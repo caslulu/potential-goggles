@@ -1,68 +1,65 @@
 import React, {useEffect, useState} from 'react';
+import { fetchAutenticado } from '../services/api.ts';
 
 function Aluno() {
   const [alunos, setAlunos] = useState([]);
   const [novoAluno, setNovoAluno] = useState('');
   const [novoEmail, setNovoEmail] = useState('');
+  const [novaSenha, setNovaSenha] = useState('');
+
   const [alunoParaEditar, setAlunoParaEditar] = useState(null);
   useEffect(() => {
-   fetch('http://localhost:8080/alunos')
-    .then(response => response.json())
-    .then(data => setAlunos(data))
+    const buscarAlunos = async () => {
+      try{
+        const data = await fetchAutenticado('/alunos');
+        setAlunos(data);
+      } catch (error) {
+        console.error("Erro ao buscar alunos", error);
+      }
+    };
+    buscarAlunos();
   },[]);
 
-  function handleDelete(id: Long){
-    fetch(`http://localhost:8080/alunos/${id}`, {method: 'DELETE'})
-    .then(response => {
-        if (response.ok){
-          setAlunos(alunos.filter(a => a.id !== id));
-        }
-        else{
-          alert("Erro ao deletar o aluno");
-        }
-      });
-
+  const handleDelete = async (id: Long) =>{
+    try{
+      await fetchAutenticado(`/alunos/${id}`, {method: 'DELETE'});
+      setAlunos(alunosAtuais => alunosAtuais.filter(aluno => aluno.id !== id));
+      alert("Aluno deletado com sucesso");
+    } catch (error){
+      console.error("Falha ao deletar aluno:", error);
+      alert(`Não foi possivel deletar o aluno: ${error.message}`);
+    }
   }
   const handleSubmit = async(e)=>{
       e.preventDefault();
       const postData = {
         nome:novoAluno,
-        email:novoEmail
+        email:novoEmail,
+        senha:novaSenha
       };
     try {
       if (alunoParaEditar == null){
-        const response = await fetch('http://localhost:8080/alunos', {
+        const novoAluno = await fetchAutenticado('/alunos', {
           method: 'POST',
-          headers: {'Content-Type': 'application/json' },
           body: JSON.stringify(postData)
           });
 
-
-        if (!response.ok){
-          throw new Error("erro");
-        }
-
-        const novoAlunoSalvo = await response.json();
-        setAlunos(listaAntiga => [...listaAntiga, novoAlunoSalvo]);
+        setAlunos(listaAntiga => [...listaAntiga, novoAluno]);
       }
     else{
-        const response = await fetch(`http://localhost:8080/alunos/${alunoParaEditar.id}`, {
+        const alunoAtualizado = await fetchAutenticado(`/alunos/${alunoParaEditar.id}`, {
           method: 'PUT',
-          headers: {'Content-Type': 'application/json' },
           body: JSON.stringify(postData)
           });
 
-
-        if (!response.ok){
-          throw new Error("erro");
-        }
-        const alunoAtualizado = await response.json();
         setAlunos(listaAntiga => listaAntiga.map(aluno=> aluno.id === alunoAtualizado.id ? alunoAtualizado : aluno
           ));
       }
 
       setNovoEmail('');
       setNovoAluno('');
+      setNovaSenha('');
+      setAlunoParaEditar(null);
 
     } catch (error) {
         return "erro ao criar pessoa";
@@ -84,6 +81,8 @@ function Aluno() {
           <input type="text" id="nome" name="nome" value={novoAluno} onChange={(e) => setNovoAluno(e.target.value)} placeholder="Digite o seu nome..."/>
         <label htmlFor="email">Email: </label>
           <input type="text" id="email" name="email" value={novoEmail} onChange={(e) => setNovoEmail(e.target.value)} placeholder="Digite o seu nome..."/>
+        <label htmlFor="senha">Senha: </label>
+          <input type="password" id="senha" name="senha" value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} placeholder="Digite a sua senha.."/>
         <button type="submit" className="cursor-pointer mx-3 bg-blue-500 rounded-2xl">Enviar</button>
       </form>
       <ul>

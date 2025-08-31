@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/inscricoes")
-@CrossOrigin
 public class InscricaoController{
   private final InscricaoService inscricaoService;
   public InscricaoController(InscricaoService inscricaoService)
