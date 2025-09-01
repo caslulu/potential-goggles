@@ -29,7 +29,7 @@ public class Aluno implements UserDetails{
     if ("ADMIN".equalsIgnoreCase(this.role)){
       return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
     }
-    return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    return List.of(new SimpleGrantedAuthority("ROLE_ALUNO"));
   }
 
   @Override

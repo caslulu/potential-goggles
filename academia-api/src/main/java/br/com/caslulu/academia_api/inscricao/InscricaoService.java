@@ -5,6 +5,7 @@ import br.com.caslulu.academia_api.aula.AulaRepository;
 import br.com.caslulu.academia_api.aluno.AlunoRepository;
 import br.com.caslulu.academia_api.aluno.Aluno;
 
+import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
 
@@ -39,5 +40,17 @@ public class InscricaoService{
       return this.inscricaoRepository.save(novaInscricao);
     }
     throw new RuntimeException("Aluna ou Aula não encontrada pelo Id");
+  }
+
+  public List<Inscricao> verInscricoesAluno(Long id){
+    return inscricaoRepository.findByAlunoId(id);
+  }
+
+  public void cancelarInscricao(Long inscricaoId) throws Exception{
+    if (this.inscricaoRepository.existsById(inscricaoId)){
+      this.inscricaoRepository.deleteById(inscricaoId);
+      return;
+    }
+    throw new Exception("Não foi possivel cancelar a inscricão");
   }
 }

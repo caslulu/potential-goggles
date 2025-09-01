@@ -23,6 +23,7 @@ public class TokenService{
       return JWT.create().withIssuer("Academia API")
         .withSubject(aluno.getEmail())
         .withClaim("role", aluno.getRole())
+        .withClaim("alunoId", aluno.getId())
         .withExpiresAt(gerarDataExpiracao())
         .sign(algoritmo);
     } catch (JWTCreationException exception){

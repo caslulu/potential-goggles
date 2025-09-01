@@ -45,6 +45,8 @@ public class SecurityConfigurations {
                 req.requestMatchers(HttpMethod.DELETE, "/aulas/**").hasAuthority("ROLE_ADMIN");
 
                 req.requestMatchers(HttpMethod.POST, "/inscricoes").hasAuthority("ROLE_ALUNO");
+                req.requestMatchers(HttpMethod.POST, "/inscricoes/**").hasAuthority("ROLE_ALUNO");
+                
                 req.anyRequest().authenticated();
             })
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

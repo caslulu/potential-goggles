@@ -9,6 +9,7 @@ import br.com.caslulu.academia_api.aula.Aula;
 import br.com.caslulu.academia_api.aluno.Aluno;
 
 import jakarta.persistence.ManyToOne;
+import java.util.List;
 import java.time.LocalDateTime;
 
 @Entity

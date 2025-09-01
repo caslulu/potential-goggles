@@ -11,17 +11,25 @@ function Aula() {
   const [novoHorario, setNovoHorario] = useState("");
   const [novoInstrutor, setNovoInstrutor] = useState("");
   const [novaCapacidade, setNovaCapacidade] = useState("");
+
+
+  const [minhasInscricoes, setMinhasIncricoes] = useState([]);
+
   useEffect (()=> {
     const buscarAulas = async () => {
       try{
         const data = await fetchAutenticado('/aulas');
         setAulas(data);
+        if (user && user.alunoId){
+        const dataInscricoes = await fetchAutenticado(`/inscricoes/aluno/${user.alunoId}`);
+        setMinhasIncricoes(dataInscricoes);
+        }
       } catch (error){
         console.log("Erro ao buscar aulas", error);
       }
     };
     buscarAulas();
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,13 +90,14 @@ function Aula() {
   const handleInscrever = async (aulaId)=>{
     const postData = {
       aulaId: aulaId,
-      alunoId: 2
+      alunoId: user.alunoId
     };
-    const response = await fetchAutenticado('/inscricoes', {
+    const inscricaoNova = await fetchAutenticado('/inscricoes', {
       method:"POST",
       body: JSON.stringify(postData)
     });
     alert("Inscricao realizada com sucesso");
+      setMinhasIncricoes(inscricaoAntiga => [...inscricaoAntiga, inscricaoNova]);
     setAulas(listaAntiga => listaAntiga.map(aula => {
       if (aula.id === aulaId){
         return {...aula, inscritos: (aula.inscritos ?? 0)+1};
@@ -97,6 +106,15 @@ function Aula() {
       }
     })
     );
+  }
+
+  const handleCancelarInscricao = async (inscricaoId: Long, aulaId: Long) => {
+    const inscricaoCancelada = await fetchAutenticado(`/inscricoes/${inscricaoId}`, {method: "DELETE"});
+    setMinhasIncricoes(inscricoesAtuais => inscricoesAtuais.filter(inscricao=> inscricao.id !== inscricaoId));
+    setAulas(aulasAtuais => aulasAtuais.map(aula => 
+    aula.id === aulaId ? {... aula, inscritos: aula.inscritos - 1} : aula
+    ));
+
   }
   return(
      <div>
@@ -123,12 +141,18 @@ function Aula() {
         <hr/>
 
       <ul>
-        {aulas.map(aula =>(
+        {aulas.map(aula =>{
+          const inscricaoAluno = minhasInscricoes.find(inscricao => inscricao.aula.id === aula.id)
+          return (
         <li key={aula.id}> Tipo de aula: {aula.nome} -
             Horario da aula: {aula.horario} - 
             Instrutor da aula: {aula.instrutor} -
             Capacidade: {aula.inscritos ?? 0}/{aula.capacidade} Pessoas
-            { user && user.role === 'ALUNO' && (<button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={()=> handleInscrever(aula.id)}> Inscrever</button>)}
+            { user && user.role === 'ALUNO' && (
+              inscricaoAluno
+                ? <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={()=> handleCancelarInscricao(inscricaoAluno.id, aula.id)}> Cancelar</button>
+                : <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={()=> handleInscrever(aula.id)}> Inscrever</button>
+              )}
             { user && user.role === 'ADMIN' && (
               <>
                 <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleDelete(aula.id)}>deletar</button>
@@ -137,7 +161,8 @@ function Aula() {
             )}
           <hr/>
         </li>
-        ))}
+        ); 
+        })}
       </ul>
 
     </div>
