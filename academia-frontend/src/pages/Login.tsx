@@ -1,14 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode } from 'jwt-decode';
+import { useAuth } from '../contexts/AuthContext.tsx';
 
 function Login(){
-
+  
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try{
       const response = await fetch("http://localhost:8080/auth/login", {
         method: 'POST',
@@ -21,8 +25,9 @@ function Login(){
         throw new Error("Não foi possivel logar");
       }
 
-      const tokenDaApi = await response.json();
-      localStorage.setItem('authToken', tokenDaApi.token);
+      const data = await response.json();
+
+      login(data.token);
 
       alert("login bem sucedido!");
       navigate('/alunos');

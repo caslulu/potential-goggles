@@ -22,6 +22,7 @@ public class TokenService{
       Algorithm algoritmo = Algorithm.HMAC256(secret);
       return JWT.create().withIssuer("Academia API")
         .withSubject(aluno.getEmail())
+        .withClaim("role", aluno.getRole())
         .withExpiresAt(gerarDataExpiracao())
         .sign(algoritmo);
     } catch (JWTCreationException exception){

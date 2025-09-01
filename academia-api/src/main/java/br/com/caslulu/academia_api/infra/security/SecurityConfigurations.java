@@ -35,9 +35,16 @@ public class SecurityConfigurations {
             .authorizeHttpRequests(req -> {
                 req.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                 req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+
                 req.requestMatchers(HttpMethod.POST, "/alunos").permitAll();
                 req.requestMatchers(HttpMethod.PUT, "/alunos/**").hasAuthority("ROLE_ADMIN");
                 req.requestMatchers(HttpMethod.DELETE, "/alunos/**").hasAuthority("ROLE_ADMIN");
+                
+                req.requestMatchers(HttpMethod.POST, "/aulas").hasAuthority("ROLE_ADMIN");
+                req.requestMatchers(HttpMethod.PUT, "/aulas/**").hasAuthority("ROLE_ADMIN");
+                req.requestMatchers(HttpMethod.DELETE, "/aulas/**").hasAuthority("ROLE_ADMIN");
+
+                req.requestMatchers(HttpMethod.POST, "/inscricoes").hasAuthority("ROLE_ALUNO");
                 req.anyRequest().authenticated();
             })
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

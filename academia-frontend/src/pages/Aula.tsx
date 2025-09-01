@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import {fetchAutenticado} from '../services/api.ts';
+import {useAuth} from '../contexts/AuthContext.tsx';
 
 function Aula() {
+
+  const { user } = useAuth();
   const [aulas, setAulas] = useState([]);
   const [aulaParaEditar, setAulaParaEditar] = useState(null);
   const [novaAula, setNovaAula] = useState("");
@@ -8,42 +12,40 @@ function Aula() {
   const [novoInstrutor, setNovoInstrutor] = useState("");
   const [novaCapacidade, setNovaCapacidade] = useState("");
   useEffect (()=> {
-    fetch("http://localhost:8080/aulas")
-    .then(response => response.json())
-    .then(data => setAulas(data));
+    const buscarAulas = async () => {
+      try{
+        const data = await fetchAutenticado('/aulas');
+        setAulas(data);
+      } catch (error){
+        console.log("Erro ao buscar aulas", error);
+      }
+    };
+    buscarAulas();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const postData = { nome: novaAula, horario: novoHorario,
+    const postData = { nome: novaAula,
+      horario: novoHorario,
       instrutor: novoInstrutor,
       capacidade: novaCapacidade
     };
     try{
       if(aulaParaEditar == null){
-        const response = await fetch('http://localhost:8080/aulas', {
+        const novaAulaSalva = await fetchAutenticado('/aulas', {
           method: 'POST',
-          headers: {'Content-Type': 'application/json' },
           body: JSON.stringify(postData)
           });
 
-        if(!response.ok){
-          throw new Error("nao foi possivel criar");
-        }
 
-        const novaAulaSalva = await response.json();
         setAulas(aulaAntiga => [...aulaAntiga, novaAulaSalva]);
 
       }
       else{
-        const response = await fetch(`http://localhost:8080/aulas/${aulaParaEditar.id}`, {
+        const response = await fetchAutenticado(`/aulas/${aulaParaEditar.id}`, {
           method: 'PUT',
-          headers: {'Content-Type': 'application/json' },
           body: JSON.stringify(postData)
           });
-        if(!response.ok){
-          throw new Error("nao foi possivel editar");
-        }
         const aulaEditada = await response.json();
         setAulas(listaAntiga => listaAntiga.map(aula=> aula.id === aulaEditada.id ? aulaEditada : aula
         ));
@@ -52,22 +54,22 @@ function Aula() {
       setNovoHorario("");
       setNovoInstrutor("");
       setNovaCapacidade("");
+      setAulaParaEditar(null);
     }
     catch(error){
       return "nao foi possivel criar a aula";
     }
   };
 
-  function handleDelete(id: Long){
-  fetch(`http://localhost:8080/aulas/${id}`, {method: 'DELETE'})
-    .then(response => {
-        if(response.ok){
-        setAulas(aulas.filter(a=> a.id !== id));
-        }
-        else{
-          alert("não foi possivel deletar essa aula.");
-        }
-      });
+  const handleDelete = async (id: Long) => {
+    try{
+      await fetchAutenticado(`/aulas/${id}`, {method: "DELETE"});
+      setAulas(aulasAtuais => aulasAtuais.filter(aula => aula.id !== id));
+      alert("aula deletada com sucesso");
+    } catch ( error){
+      console.error("Falha ao deletar aula: ", error);
+      alert(`nao foi possivel deletar a aula: ${error.message}`);
+    }
   }
   const handleEdit = (aula) =>{
       setAulaParaEditar(aula);
@@ -82,19 +84,14 @@ function Aula() {
       aulaId: aulaId,
       alunoId: 2
     };
-    const response = await fetch('http://localhost:8080/inscricoes', {
+    const response = await fetchAutenticado('/inscricoes', {
       method:"POST",
-      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(postData)
     });
-    if (! response.ok){
-      alert("Não foi possivel se inscrever");
-      throw new Error("Não foi possivel se inscrever");
-    }
     alert("Inscricao realizada com sucesso");
     setAulas(listaAntiga => listaAntiga.map(aula => {
       if (aula.id === aulaId){
-        return {...aula, inscritos: aula.inscritos+1};
+        return {...aula, inscritos: (aula.inscritos ?? 0)+1};
       } else{
         return aula;
       }
@@ -104,36 +101,45 @@ function Aula() {
   return(
      <div>
       <hr/>
-      <ul>
+
+        { user && user.role === "ADMIN" && (
         <form onSubmit={handleSubmit}>
-        <label htmlFor="aula">Nome:</label>
-        <input type="text" id="aula" name="aula" value={novaAula} onChange={(e) => setNovaAula(e.target.value)}placeholder="Nome da aula..."/>
+          <label htmlFor="aula">Nome:</label>
+          <input type="text" id="aula" name="aula" value={novaAula} onChange={(e) => setNovaAula(e.target.value)}placeholder="Nome da aula..."/>
 
-        <label htmlFor="horario">Horario:</label>
-        <input type="text" id="horario" name="horario" value={novoHorario} onChange={(e) => setNovoHorario(e.target.value)} placeholder="Horario da aula..."/>
+          <label htmlFor="horario">Horario:</label>
+          <input type="text" id="horario" name="horario" value={novoHorario} onChange={(e) => setNovoHorario(e.target.value)} placeholder="Horario da aula..."/>
 
-        <label htmlFor="instrutor">Instrutor:</label>
-        <input type="text" id="instrutor" name="instrutor" value={novoInstrutor} onChange={(e) => setNovoInstrutor(e.target.value)} placeholder="Nome do instrutor..."/>
+          <label htmlFor="instrutor">Instrutor:</label>
+          <input type="text" id="instrutor" name="instrutor" value={novoInstrutor} onChange={(e) => setNovoInstrutor(e.target.value)} placeholder="Nome do instrutor..."/>
 
-        <label htmlFor="capacidade">Capacidade:</label>
-          <input type="text" id="capacidade" name="capacidade" value={novaCapacidade} onChange={(e) => setNovaCapacidade(e.target.value)} placeholder="Capacidade da aula..."/>
+          <label htmlFor="capacidade">Capacidade:</label>
+            <input type="text" id="capacidade" name="capacidade" value={novaCapacidade} onChange={(e) => setNovaCapacidade(e.target.value)} placeholder="Capacidade da aula..."/>
 
-        <button type="submit" className="cursor-pointer my-3 bg-blue-500 rounded-2xl">Criar Aula</button>
+          <button type="submit" className="cursor-pointer my-3 bg-blue-500 rounded-2xl">Criar Aula</button>
         </form>
+        )}
+
         <hr/>
 
+      <ul>
         {aulas.map(aula =>(
         <li key={aula.id}> Tipo de aula: {aula.nome} -
             Horario da aula: {aula.horario} - 
             Instrutor da aula: {aula.instrutor} -
-            Capacidade: {aula.inscritos}/{aula.capacidade} Pessoas
-            <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={()=> handleInscrever(aula.id)}> Inscrever</button>
-            <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleDelete(aula.id)}>deletar</button>
-            <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleEdit(aula)}>Editar</button>
+            Capacidade: {aula.inscritos ?? 0}/{aula.capacidade} Pessoas
+            { user && user.role === 'ALUNO' && (<button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={()=> handleInscrever(aula.id)}> Inscrever</button>)}
+            { user && user.role === 'ADMIN' && (
+              <>
+                <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleDelete(aula.id)}>deletar</button>
+                <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleEdit(aula)}>Editar</button>
+              </>
+            )}
           <hr/>
         </li>
         ))}
       </ul>
+
     </div>
   );
 }
