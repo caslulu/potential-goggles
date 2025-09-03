@@ -11,6 +11,8 @@ function Aula() {
   const [novoHorario, setNovoHorario] = useState("");
   const [novoInstrutor, setNovoInstrutor] = useState("");
   const [novaCapacidade, setNovaCapacidade] = useState("");
+  const [inscritos, setInscritos] = useState([]);
+  const [aulaSelecionadaId, setAulaSelecionadaId] = useState(false);
 
 
   const [minhasInscricoes, setMinhasIncricoes] = useState([]);
@@ -116,10 +118,23 @@ function Aula() {
     ));
 
   }
+
+  const handleVerInscritos = async (aulaId: Long) => {
+    if (aulaSelecionadaId === aulaId){
+      setAulaSelecionadaId(null);
+      return;
+    }
+    try{
+    const data =  await fetchAutenticado(`/inscricoes/aula/${aulaId}`);
+    setInscritos(data);
+    setAulaSelecionadaId(aulaId);
+    }catch( error){
+      console.log("Erro ao buscar inscritos", error);
+      alert("Não foi possivel Buscar a lista de inscritos");
+    }
+  }
   return(
      <div>
-      <hr/>
-
         { user && user.role === "ADMIN" && (
         <form onSubmit={handleSubmit}>
           <label htmlFor="aula">Nome:</label>
@@ -155,11 +170,19 @@ function Aula() {
               )}
             { user && user.role === 'ADMIN' && (
               <>
-                <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleDelete(aula.id)}>deletar</button>
+                <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleVerInscritos(aula.id)}>{aulaSelecionadaId === aula.id ? 'Esconder Inscritos' : 'Ver Inscritos'}</button>
+                <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleDelete(aula.id)}>Deletar</button>
                 <button className="cursor-pointer mx-3 bg-blue-500 rounded-2xl" onClick={ ()=> handleEdit(aula)}>Editar</button>
               </>
             )}
           <hr/>
+              {aulaSelecionadaId === aula.id && (
+              <ul>
+                {inscritos.map(inscrito => (
+                <li key={inscrito.id}>{inscrito.aluno.nome}</li>
+                ))}
+              </ul>
+              )}
         </li>
         ); 
         })}

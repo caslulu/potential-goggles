@@ -6,5 +6,6 @@ import java.util.List;
 public interface InscricaoRepository extends JpaRepository<Inscricao, Long>{
   int countByAulaId(Long aulaId);
   List<Inscricao> findByAlunoId(Long alunoId);
+  List<Inscricao> findByAulaId(Long aulaId);
 
 }

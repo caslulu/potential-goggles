@@ -27,6 +27,11 @@ public class InscricaoController{
     return inscricaoService.verInscricoesAluno(id);
   }
 
+  @GetMapping("/aula/{id}")
+  public List<Inscricao> buscarInscricoesPorAula(@PathVariable Long id){
+    return inscricaoService.verInscricoesPorAula(id);
+  }
+
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> removerInscricao(@PathVariable Long id) throws Exception{
     this.inscricaoService.cancelarInscricao(id);

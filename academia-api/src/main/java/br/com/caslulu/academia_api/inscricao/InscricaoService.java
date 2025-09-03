@@ -46,6 +46,10 @@ public class InscricaoService{
     return inscricaoRepository.findByAlunoId(id);
   }
 
+  public List<Inscricao> verInscricoesPorAula(Long id){
+    return inscricaoRepository.findByAulaId(id);
+  }
+
   public void cancelarInscricao(Long inscricaoId) throws Exception{
     if (this.inscricaoRepository.existsById(inscricaoId)){
       this.inscricaoRepository.deleteById(inscricaoId);

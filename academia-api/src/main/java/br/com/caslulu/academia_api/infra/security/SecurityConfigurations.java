@@ -43,10 +43,12 @@ public class SecurityConfigurations {
                 req.requestMatchers(HttpMethod.POST, "/aulas").hasAuthority("ROLE_ADMIN");
                 req.requestMatchers(HttpMethod.PUT, "/aulas/**").hasAuthority("ROLE_ADMIN");
                 req.requestMatchers(HttpMethod.DELETE, "/aulas/**").hasAuthority("ROLE_ADMIN");
-
+          
                 req.requestMatchers(HttpMethod.POST, "/inscricoes").hasAuthority("ROLE_ALUNO");
                 req.requestMatchers(HttpMethod.POST, "/inscricoes/**").hasAuthority("ROLE_ALUNO");
-                
+                req.requestMatchers(HttpMethod.GET, "/inscricoes/aluno/**").hasAuthority("ROLE_ALUNO");
+                req.requestMatchers(HttpMethod.GET, "/inscricoes/aula/**").hasAuthority("ROLE_ADMIN");
+
                 req.anyRequest().authenticated();
             })
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
