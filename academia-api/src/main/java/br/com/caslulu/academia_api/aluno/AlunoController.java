@@ -32,7 +32,7 @@ public class AlunoController {
   }
 
   @PostMapping("/alunos")
-  public Aluno adicionarAluno(@RequestBody Aluno alunoAdicionar){
+  public Aluno adicionarAluno(@RequestBody Aluno alunoAdicionar) throws Exception{
     return service.criar(alunoAdicionar);
   }
 

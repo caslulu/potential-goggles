@@ -1,25 +1,35 @@
 package br.com.caslulu.academia_api.aluno;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.caslulu.academia_api.infra.security.SecurityConfigurations;
+import br.com.caslulu.academia_api.inscricao.InscricaoRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AlunoService{
   private final PasswordEncoder passEncoder;
   private final AlunoRepository repository;
+  private final InscricaoRepository inscricaoRepository;
 
-  public AlunoService(PasswordEncoder passEncoder, AlunoRepository repository){
+  public AlunoService(PasswordEncoder passEncoder, AlunoRepository repository, InscricaoRepository inscricaoRepository){
     this.passEncoder = passEncoder;
     this.repository = repository;
+    this.inscricaoRepository = inscricaoRepository;
   }
 
-  public Aluno criar(Aluno novoAluno){
+  public Aluno criar(Aluno novoAluno) throws Exception{
     String senhaPura = novoAluno.getSenha();
+    if (senhaPura == null || novoAluno.getNome() == null || novoAluno.getEmail() == null
+      || senhaPura.isBlank() || novoAluno.getNome().isBlank() || novoAluno.getEmail().isBlank()){
+      throw new IllegalArgumentException("Nome, Email e senha sao obrigatorios");
+    }
     
     String senhaCriptografada = passEncoder.encode(senhaPura);
 
@@ -55,6 +65,7 @@ public class AlunoService{
 
   public void deletar(Long id){
     if(repository.existsById(id)){
+      inscricaoRepository.deleteByAlunoId(id);
       repository.deleteById(id);
       return;
     }
